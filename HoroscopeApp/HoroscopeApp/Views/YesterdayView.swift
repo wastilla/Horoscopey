@@ -10,7 +10,8 @@ import SwiftUI
 
 struct YesterdayView: View {
     let sign: String
-    @StateObject var viewModel: HoroscopeViewModel = .init()
+    //@StateObject var viewModel: HoroscopeViewModel = .init()
+    @ObservedObject var viewModel: HoroscopeViewModel
     let columns = [
         GridItem(.adaptive(minimum: 125))
     ]
@@ -34,11 +35,36 @@ struct YesterdayView: View {
                             ItemView(symbol: "🧮", title: "Lucky Number", content: viewModel.horoscope.luckyNumber)
 
                             ItemView(symbol: "🗓", title: "Date Range", content: viewModel.horoscope.dateRange)
+                            
+                            Button(action: {
+                                self.viewModel.addHoroscope()
+                                self.viewModel.saveItems()
+                            }) {
+                                ZStack {
+                                    Color.black.opacity(0.1)
+                                    VStack {
+                                        VStack {
+                                            Image(systemName: "square.and.arrow.down")
+                                                .font(.largeTitle)
+                                            Text("Save")
+                                                .font(.system(.title2, design: .rounded))
+                                                .bold()
+                                        }
+                                        .foregroundColor(.black)
+                                        .padding(.bottom, 10)
+                                    }
+                                    .padding()
+                                    // .font(.system(size: 36))
+                                    .cornerRadius(10)
+                                }
+                                .frame(width: 175, height: 175)
+                                .cornerRadius(20)
+                            }
                         }
                     }
                     .padding()
                     NavigationLink(destination:
-                        HoroscopeView(sign: self.sign),
+                                    HoroscopeView(sign: self.sign, viewModel: self.viewModel),
                         label: {
                             
                             Text("Today")

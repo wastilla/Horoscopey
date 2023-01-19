@@ -11,8 +11,8 @@ import SwiftUI
 struct HoroscopeView: View {
     @Environment(\.presentationMode) var presentationMode
     let sign: String
-    @StateObject var viewModel: HoroscopeViewModel = .init()
-    //@EnvironmentObject var viewModel: HoroscopeViewModel
+    @ObservedObject var viewModel: HoroscopeViewModel
+    // @EnvironmentObject var viewModel: HoroscopeViewModel
     let columns = [
         GridItem(.adaptive(minimum: 130))
     ]
@@ -36,12 +36,37 @@ struct HoroscopeView: View {
                             ItemView(symbol: "🧮", title: "Lucky Number", content: viewModel.horoscope.luckyNumber)
 
                             ItemView(symbol: "🗓", title: "Date Range", content: viewModel.horoscope.dateRange)
+
+                            Button(action: {
+                                self.viewModel.addHoroscope()
+                                self.viewModel.saveItems()
+                            }) {
+                                ZStack {
+                                    Color.black.opacity(0.1)
+                                    VStack {
+                                        VStack {
+                                            Image(systemName: "square.and.arrow.down")
+                                                .font(.largeTitle)
+                                            Text("Save")
+                                                .font(.system(.title2, design: .rounded))
+                                                .bold()
+                                        }
+                                        .foregroundColor(.black)
+                                        .padding(.bottom, 10)
+                                    }
+                                    .padding()
+                                    // .font(.system(size: 36))
+                                    .cornerRadius(10)
+                                }
+                                .frame(width: 175, height: 175)
+                                .cornerRadius(20)
+                            }
                         }
                     }
                     .padding()
                     HStack {
                         NavigationLink(destination:
-                            YesterdayView(sign: self.sign),
+                            YesterdayView(sign: self.sign, viewModel: self.viewModel),
                             label: {
                                 Image(systemName: "chevron.left")
                                     .bold()
@@ -51,7 +76,7 @@ struct HoroscopeView: View {
 
                         Spacer()
                         NavigationLink(destination:
-                            TomorrowView(sign: self.sign),
+                            TomorrowView(sign: self.sign, viewModel: self.viewModel),
                             label: {
                                 Text("Tomorrow")
                                 Image(systemName: "chevron.right")
@@ -97,6 +122,6 @@ struct HoroscopeView: View {
 
 struct HoroscopeView_Previews: PreviewProvider {
     static var previews: some View {
-        HoroscopeView(sign: "gemini")
+        HoroscopeView(sign: "gemini", viewModel: HoroscopeViewModel())
     }
 }

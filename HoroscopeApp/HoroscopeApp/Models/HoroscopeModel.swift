@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct HoroscopeModel: Codable {
+struct HoroscopeModel: Codable, Identifiable {
     let dateRange, currentDate, description, compatibility: String
     let mood, color, luckyNumber, luckyTime: String
-
+    let id = UUID()
     enum CodingKeys: String, CodingKey {
         case dateRange = "date_range"
         case currentDate = "current_date"

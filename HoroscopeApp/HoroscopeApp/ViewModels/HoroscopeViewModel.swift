@@ -8,6 +8,7 @@
 import Foundation
 class HoroscopeViewModel: ObservableObject {
     @Published var horoscope: HoroscopeModel = .example
+    
     @Published var savedHoroscopes: [HoroscopeModel] = [] {
         didSet {
             saveItems()
