@@ -12,7 +12,6 @@ struct HoroscopeView: View {
     @Environment(\.presentationMode) var presentationMode
     let sign: String
     @ObservedObject var viewModel: HoroscopeViewModel
-    // @EnvironmentObject var viewModel: HoroscopeViewModel
     let columns = [
         GridItem(.adaptive(minimum: 130))
     ]
@@ -55,7 +54,6 @@ struct HoroscopeView: View {
                                         .padding(.bottom, 10)
                                     }
                                     .padding()
-                                    // .font(.system(size: 36))
                                     .cornerRadius(10)
                                 }
                                 .frame(width: 175, height: 175)
@@ -90,15 +88,7 @@ struct HoroscopeView: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
-                /* Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                            Text("Back to Home")
-                        }
-                        .foregroundColor(.black)
-                    } */
+
                 NavigationLink(destination:
                     ContentView(sign: self.sign),
                     label: {

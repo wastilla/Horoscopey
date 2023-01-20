@@ -10,7 +10,7 @@ import SwiftUI
 
 struct YesterdayView: View {
     let sign: String
-    //@StateObject var viewModel: HoroscopeViewModel = .init()
+
     @ObservedObject var viewModel: HoroscopeViewModel
     let columns = [
         GridItem(.adaptive(minimum: 125))
@@ -35,7 +35,7 @@ struct YesterdayView: View {
                             ItemView(symbol: "🧮", title: "Lucky Number", content: viewModel.horoscope.luckyNumber)
 
                             ItemView(symbol: "🗓", title: "Date Range", content: viewModel.horoscope.dateRange)
-                            
+
                             Button(action: {
                                 self.viewModel.addHoroscope()
                                 self.viewModel.saveItems()
@@ -54,7 +54,6 @@ struct YesterdayView: View {
                                         .padding(.bottom, 10)
                                     }
                                     .padding()
-                                    // .font(.system(size: 36))
                                     .cornerRadius(10)
                                 }
                                 .frame(width: 175, height: 175)
@@ -64,15 +63,14 @@ struct YesterdayView: View {
                     }
                     .padding()
                     NavigationLink(destination:
-                                    HoroscopeView(sign: self.sign, viewModel: self.viewModel),
+                        HoroscopeView(sign: self.sign, viewModel: self.viewModel),
                         label: {
-                            
                             Text("Today")
-                        Image(systemName: "chevron.right")
-                            .bold()
+                            Image(systemName: "chevron.right")
+                                .bold()
 
                         })
-                    .foregroundColor(.black)
+                        .foregroundColor(.black)
                 }
             }
             .navigationBarBackButtonHidden(true)

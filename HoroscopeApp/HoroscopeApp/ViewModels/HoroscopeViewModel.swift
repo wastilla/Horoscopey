@@ -55,6 +55,13 @@ class HoroscopeViewModel: ObservableObject {
     func addHoroscope() {
         savedHoroscopes.append(horoscope)
     }
+    
+    func removeHoroscope(horoscope: HoroscopeModel){
+        if let index = savedHoroscopes.firstIndex(where: {$0.id == horoscope.id}){
+            savedHoroscopes.remove(at: index)
+        }
+        
+    }
 
     func saveItems() {
         if let encodedData = try? JSONEncoder().encode(savedHoroscopes) {

@@ -26,8 +26,7 @@ struct ContentView: View {
                             Text($0)
                         }
                     }.pickerStyle(WheelPickerStyle())
-                    
-                    
+
                     Spacer()
                     Text("Selected: " + sign)
                         .font(.system(.title, design: .rounded))
@@ -51,21 +50,27 @@ struct ContentView: View {
                             .cornerRadius(10)
                     }
                     Text("Your Favorites:")
-                    ScrollView{
+                    ScrollView {
                         ForEach(self.viewModel.savedHoroscopes) { horoscope in
                             NavigationLink(destination:
                                 SavedHoroscopeView(description: horoscope.description, color: horoscope.color,
                                                    compatibility: horoscope.compatibility, luckyTime: horoscope.luckyTime, luckyNumber: horoscope.luckyTime, dateRange: horoscope.dateRange, currentDate: horoscope.currentDate),
                                 label: {
-                                Text(horoscope.currentDate)
-                                        .foregroundColor(.black)
-                                        .padding(30)
-                                        .background(Color.cyan.opacity(0.1))
-                                        .border(.gray, width: 0.5)
+                                HStack(spacing: 20) {
+                                        Text(horoscope.currentDate)
                                         
-                                        //.cornerRadius(10)
-                                        
-
+                                        Button(action: {
+                                            self.viewModel.removeHoroscope(horoscope: horoscope)
+                                            self.viewModel.saveItems()
+                                        }) {
+                                            Image(systemName: "minus.circle")
+                                                .font(.title)
+                                        }
+                                    }
+                                    .foregroundColor(.black)
+                                    .padding(20)
+                                    .background(Color.cyan.opacity(0.1))
+                                    .border(.gray, width: 0.5)
                                 })
                         }
                     }
